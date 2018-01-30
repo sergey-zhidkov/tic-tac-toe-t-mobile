@@ -7,6 +7,7 @@ import { BoardComponent } from './board/board.component';
 import { TileComponent } from './board/tile/tile.component';
 
 import { BoardStateService } from './services/board-state.service';
+import { GameManagerService } from './services/game-manager.service';
 
 
 @NgModule({
@@ -18,7 +19,10 @@ import { BoardStateService } from './services/board-state.service';
   imports: [
     BrowserModule
   ],
-  providers: [BoardStateService],
+  providers: [
+    BoardStateService,
+    GameManagerService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

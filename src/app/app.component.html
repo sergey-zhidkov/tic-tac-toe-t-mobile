@@ -1,5 +1,17 @@
 <app-board></app-board>
 
+<div class="information">
+  <div class="player">
+    Player: <span>X</span>
+  </div>
+  <div class="computer">
+    Computer: <span>O</span>
+  </div>
+  <div class="turn">
+    {{ getTurnText() }}
+  </div>
+</div>
+
 <div class="controls">
   <button>Restart</button>
 </div>

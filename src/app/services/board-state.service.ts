@@ -7,12 +7,7 @@ export enum TileState {
 }
 
 export class Tile {
-  private state: TileState;
-  private index: number;
-
-  constructor(index: number, state: TileState) {
-    this.index = index;
-    this.state = state;
+  constructor(private index: number, private state: TileState) {
   }
 
   public getState() {
@@ -27,7 +22,7 @@ export interface Row {
 @Injectable()
 export class BoardStateService {
   /**
-   * Use boardSize = 9 by default (3x3)
+   * Use boardSize == 9 by default (3x3)
    * With this property we can extend our application to support any board size in the future.
    */
   private rows: number;
@@ -50,16 +45,16 @@ export class BoardStateService {
     }
   }
 
-  public getRowNum(): number {
-    return this.rows;
-  }
+  // public getRowNum(): number {
+  //   return this.rows;
+  // }
 
-  public getColNum(): number {
-    return this.cols;
-  }
+  // public getColNum(): number {
+  //   return this.cols;
+  // }
 
   /**
-   * Translate one dimension array to two dimensions
+   * Translate one dimension array to two dimension
    */
   public getRows(): Row[] {
     const result: Row[] = [];
