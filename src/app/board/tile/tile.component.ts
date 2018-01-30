@@ -6,9 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tile.component.css']
 })
 export class TileComponent implements OnInit {
+  private value: string;
 
   constructor() {
-
+    
   }
 
   ngOnInit() {

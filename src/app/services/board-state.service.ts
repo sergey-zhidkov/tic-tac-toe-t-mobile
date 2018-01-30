@@ -6,8 +6,14 @@ export enum TileState {
   O = 2
 }
 
-export interface Tile {
-  state: TileState
+export class Tile {
+  private state: TileState;
+  private index: number;
+
+  constructor(index: number, state: TileState) {
+    this.index = index;
+    this.state = state;
+  }
 }
 
 export interface Row {
@@ -24,25 +30,21 @@ export class BoardStateService {
   private cols: number;
   private boardSize: number;
 
-  private readonly initialState: Tile[];
-  private currentState: Tile[];
+  private state: Tile[];
 
   constructor() {
     this.rows = 3;
     this.cols = 3;
     this.boardSize = this.rows * this.cols;
-
-    this.initialState = new Array(this.boardSize).fill(TileState.Empty);
     this.resetState();
   }
 
   public resetState(): void {
-    this.currentState = [...this.initialState];
+    this.state = new Array(this.boardSize);
+    for (let i = 0; i < this.state.length; i++) {
+      this.state[i] = new Tile(i, TileState.Empty);
+    }
   }
-
-  // public getState(): TileState[] {
-  //   return this.currentState.slice();
-  // }
 
   public getRowNum(): number {
     return this.rows;
@@ -60,15 +62,15 @@ export class BoardStateService {
     for (let i = 0; i < this.rows; i++) {
       const row: Tile[] = [];
       for (let j = 0; j < this.cols; j++) {
-        row.push(this.getTileByIndex(i, j));
+        row.push(this.getTileByRowCol(i, j));
       }
       result.push(row);
     }
     return result;
   }
 
-  private getTileByIndex(i: number, j: number): Tile {
-    return this.currentState[i * this.rows + j];
+  private getTileByRowCol(i: number, j: number): Tile {
+    return this.state[i * this.rows + j];
   }
 
 }

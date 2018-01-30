@@ -1,0 +1,7 @@
+:host {
+
+}
+
+:host .row {
+  display: flex;
+}
