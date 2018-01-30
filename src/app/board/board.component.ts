@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { BoardStateService, TileState, Row, Tile } from '../services/board-state.service';
+import { BoardStateService, TileState, Tile } from '../services/board-state.service';
 import { GameManagerService } from '../services/game-manager.service';
 
 @Component({
@@ -21,8 +21,12 @@ export class BoardComponent implements OnInit {
     this.gameManagerService.tryPlayerMove(tile);
   }
 
-  private getRows(): Row[] {
+  private getRows(): Tile[][] {
     return this.boardStateService.getRows();
+  }
+
+  private getTileClass(tile: Tile): string {
+    return tile.getIsWinner() ? 'winner' : '';
   }
 
 }

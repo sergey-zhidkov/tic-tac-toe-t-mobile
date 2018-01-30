@@ -8,15 +8,26 @@ export enum TileState {
 }
 
 export class Tile {
-  constructor(private index: number, private state: TileState) {
+  constructor(
+    private index: number,
+    private state: TileState,
+    private isWinner: boolean = false) {
   }
 
-  public getState() {
+  public getState(): TileState {
     return this.state;
   }
 
-  public setState(state: TileState) {
+  public setState(state: TileState): void {
     this.state = state;
+  }
+
+  public setIsWinner(state: boolean): void {
+    this.isWinner = state;
+  }
+
+  public getIsWinner(): boolean {
+    return this.isWinner;
   }
 }
 
@@ -31,6 +42,7 @@ export class BoardStateService {
   private boardSize: number;
 
   private state: Tile[];
+  private winnerLine: Tile[];
 
   constructor() {
     this.rows = 3;
@@ -121,6 +133,7 @@ export class BoardStateService {
     const rows: Tile[][] = this.getRows();
     for (const row of rows) {
       if (!this.containsEmptyTile(row) && this.allValuesAreSame(row)) {
+        this.setWinnerTiles(row);
         return true;
       }
     }
@@ -129,6 +142,7 @@ export class BoardStateService {
     const cols: Tile[][] = this.getCols();
     for (const col of cols) {
       if (!this.containsEmptyTile(col) && this.allValuesAreSame(col)) {
+        this.setWinnerTiles(col);
         return true;
       }
     }
@@ -136,10 +150,12 @@ export class BoardStateService {
     // 3. Check diagonals
     const diagonalTopLeft: Tile[] = this.getDiagonalTopLeft();
     if (!this.containsEmptyTile(diagonalTopLeft) && this.allValuesAreSame(diagonalTopLeft)) {
+      this.setWinnerTiles(diagonalTopLeft);
       return true;
     }
     const diagonalTopRight: Tile[] = this.getDiagonalTopRight();
     if (!this.containsEmptyTile(diagonalTopRight) && this.allValuesAreSame(diagonalTopRight)) {
+      this.setWinnerTiles(diagonalTopRight);
       return true;
     }
 
@@ -161,6 +177,10 @@ export class BoardStateService {
         return null;
       }
     });
+  }
+
+  private setWinnerTiles(tiles: Tile[]) {
+    tiles.forEach(tile => tile.setIsWinner(true));
   }
 
   /**

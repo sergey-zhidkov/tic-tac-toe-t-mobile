@@ -1,12 +1,15 @@
 <app-board></app-board>
 
 <div class="information">
-  <div class="player">
-    Player: <span>X</span>
+  <div class="players">
+    <div class="player">
+      Player: <span>X</span>
+    </div>
+    <div class="computer">
+      Computer: <span>O</span>
+    </div>
   </div>
-  <div class="computer">
-    Computer: <span>O</span>
-  </div>
+
   <div class="turn" *ngIf="!gameManagerService.hasFinished()">
     {{ getTurnText() }}
   </div>

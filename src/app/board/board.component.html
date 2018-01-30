@@ -1,5 +1,9 @@
 <div class="row" *ngFor="let row of getRows()">
-  <app-tile *ngFor="let tile of row" [tile]="tile" (changeStateEvent)="changeState(tile)"></app-tile>
+  <app-tile *ngFor="let tile of row"
+    [tile]="tile"
+    (changeStateEvent)="changeState(tile)"
+    [ngClass]="getTileClass(tile)">
+  </app-tile>
 </div>
 
   

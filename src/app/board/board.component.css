@@ -5,3 +5,7 @@
 :host .row {
   display: flex;
 }
+
+:host .winner {
+  background-color: lightgreen;
+}

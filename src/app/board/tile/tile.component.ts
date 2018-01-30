@@ -24,6 +24,14 @@ export class TileComponent implements OnInit {
   ngOnInit() {
   }
 
+  private getTextColor(): string {
+    if (this.tile.getState() === TileState.X) {
+      return '#009ACD';
+    } else {
+      return '#FA8072';
+    }
+  }
+
   private getTileText(): string {
     switch (this.tile.getState()) {
       case TileState.Empty: return '';
