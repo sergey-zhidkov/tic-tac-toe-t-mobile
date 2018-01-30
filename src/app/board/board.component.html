@@ -1,16 +1,5 @@
-<div class="row">
-  <app-tile></app-tile>
-  <app-tile></app-tile>
-  <app-tile></app-tile>
+<div class="row" *ngFor="let row of getRows()">
+  <app-tile *ngFor="let col of row"></app-tile>
 </div>
-<div class="row">
-  <app-tile></app-tile>
-  <app-tile></app-tile>
-  <app-tile></app-tile>
-</div>
-<div class="row">
-  <app-tile></app-tile>
-  <app-tile></app-tile>
-  <app-tile></app-tile>
-</div>
+
   

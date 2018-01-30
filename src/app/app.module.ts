@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { BoardComponent } from './board/board.component';
 import { TileComponent } from './board/tile/tile.component';
 
+import { BoardStateService } from './services/board-state.service';
+
 
 @NgModule({
   declarations: [
@@ -16,7 +18,7 @@ import { TileComponent } from './board/tile/tile.component';
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [BoardStateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
