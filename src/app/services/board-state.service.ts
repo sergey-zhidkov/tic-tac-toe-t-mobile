@@ -14,6 +14,10 @@ export class Tile {
     this.index = index;
     this.state = state;
   }
+
+  public getState() {
+    return this.state;
+  }
 }
 
 export interface Row {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { BoardStateService, TileState, Row } from '../services/board-state.service';
+import { BoardStateService, TileState, Row, Tile } from '../services/board-state.service';
 
 @Component({
   selector: 'app-board',
@@ -8,17 +8,16 @@ import { BoardStateService, TileState, Row } from '../services/board-state.servi
   styleUrls: ['./board.component.css']
 })
 export class BoardComponent implements OnInit {
-  private boardState: TileState[];
-  // private cols: number;
-  // private rows: number;
 
   constructor(private boardStateService: BoardStateService) {
 
   }
 
-  ngOnInit() {
-    // this.cols = this.boardStateService.getColNum();
-    // this.rows = this.boardStateService.getRowNum();
+  ngOnInit(): void {
+  }
+
+  public changeState(tile: Tile): void {
+    console.log(tile);
   }
 
   private getRows(): Row[] {
