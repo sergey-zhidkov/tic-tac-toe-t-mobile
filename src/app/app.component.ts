@@ -12,10 +12,15 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
+    this.gameManagerService.reset();
   }
   
   private getTurnText(): string {
     return this.gameManagerService.getHumanName() === this.gameManagerService.getCurrentPlayerName() ? 
       "Your turn" : "Computer turn";
+  }
+
+  private restart(): void {
+    this.gameManagerService.reset();
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { BoardStateService, TileState, Row, Tile } from '../services/board-state.service';
+import { GameManagerService } from '../services/game-manager.service';
 
 @Component({
   selector: 'app-board',
@@ -9,7 +10,7 @@ import { BoardStateService, TileState, Row, Tile } from '../services/board-state
 })
 export class BoardComponent implements OnInit {
 
-  constructor(private boardStateService: BoardStateService) {
+  constructor(private boardStateService: BoardStateService, private gameManagerService: GameManagerService) {
 
   }
 
@@ -17,7 +18,7 @@ export class BoardComponent implements OnInit {
   }
 
   public changeState(tile: Tile): void {
-    console.log(tile);
+    this.gameManagerService.tryPlayerMove(tile);
   }
 
   private getRows(): Row[] {

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { empty } from 'rxjs/Observer';
 
 export enum TileState {
   Empty = 0,
@@ -12,6 +13,10 @@ export class Tile {
 
   public getState() {
     return this.state;
+  }
+
+  public setState(state: TileState) {
+    this.state = state;
   }
 }
 
@@ -72,4 +77,44 @@ export class BoardStateService {
     return this.state[i * this.rows + j];
   }
 
+  public changeTileState(tile: Tile, isComputerTurn: boolean): void {
+    if (tile.getState() !== TileState.Empty) {
+      console.warn("Tile state should be Empty");
+    }
+
+    tile.setState(isComputerTurn ? TileState.O : TileState.X);
+  }
+
+  /**
+   * Returns true if no winner yet or board is not full.
+   */
+  public canContinue(): boolean {
+    if (this.isBoardFull()) {
+      return false;
+    }
+
+    return !this.isWinner();
+  }
+
+  public isBoardFull(): boolean {
+    return this.state.filter(tile => tile.getState() === TileState.Empty).length === 0;
+  }
+
+  private isWinner(): boolean {
+    return false;
+  }
+
+  /**
+   * Called on Computer turn. Simplest computer logic.
+   */
+  public changeRandomTileState(): void {
+    const emptyTiles: Tile[] = this.state.filter(tile => tile.getState() === TileState.Empty);
+    const randomRange = emptyTiles.length;
+    if (randomRange === 0) {
+      console.warn("Game should been finished one turn before");
+    }
+
+    const randomIndex = Math.floor((Math.random() * 10)) % randomRange;
+    this.changeTileState(emptyTiles[randomIndex], true);
+  }
 }

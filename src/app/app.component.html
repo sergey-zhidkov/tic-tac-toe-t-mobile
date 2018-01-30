@@ -10,8 +10,11 @@
   <div class="turn">
     {{ getTurnText() }}
   </div>
+  <div class="winner" *ngIf="gameManagerService.hasWinner()">
+    {{ this.gameManagerService.winnerName() }}
+  </div>
 </div>
 
 <div class="controls">
-  <button>Restart</button>
+  <button (click)="restart()">Restart</button>
 </div>

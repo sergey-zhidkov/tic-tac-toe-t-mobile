@@ -8,8 +8,6 @@ import { Tile, TileState } from '../../services/board-state.service';
   styleUrls: ['./tile.component.css']
 })
 export class TileComponent implements OnInit {
-  private value: string;
-
   @Input() public tile: Tile;
 
   @HostListener('click') onclick() {
@@ -26,4 +24,13 @@ export class TileComponent implements OnInit {
   ngOnInit() {
   }
 
+  private getTileText(): string {
+    switch (this.tile.getState()) {
+      case TileState.Empty: return '';
+      case TileState.X: return 'X';
+      case TileState.O: return 'O';
+    }
+    // never should go here
+    return '';
+  }
 }
