@@ -67,6 +67,7 @@ export class GameManagerService {
       if (!this.boardStateService.canContinue()) {
         this.finishGame();
       }
+      this.currentPlayer = this.getHumanName();
     }, 1000);
   }
 

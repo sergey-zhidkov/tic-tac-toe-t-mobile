@@ -17,7 +17,7 @@ export class AppComponent {
   
   private getTurnText(): string {
     return this.gameManagerService.getHumanName() === this.gameManagerService.getCurrentPlayerName() ? 
-      "Your turn" : "Computer turn";
+      "Your turn" : "Computer's turn";
   }
 
   private restart(): void {

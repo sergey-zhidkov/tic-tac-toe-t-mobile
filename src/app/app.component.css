@@ -2,9 +2,38 @@
 }
 
 :host .information {
-  
+  font-size: 20px;
+  font-weight: 600;
 }
 
 :host .players {
+  display: flex;
+}
 
+:host .player {
+  margin: 10px 10px 10px 0;
+}
+
+:host .player .team-blue {
+  color: #009ACD;
+  font-family: Consolas, monaco, monospace;
+  font-size: 22px;
+}
+
+:host .player .team-red {
+  color: #FA8072;
+  font-family: Consolas, monaco, monospace;
+  font-size: 22px;
+}
+
+:host .controls {
+  margin-top: 10px;
+}
+
+:host .btn-restart {
+  font-size: 20px;
+}
+
+:host .btn-restart:hover {
+  cursor: pointer;
 }

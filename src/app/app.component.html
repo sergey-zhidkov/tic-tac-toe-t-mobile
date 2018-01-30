@@ -3,10 +3,10 @@
 <div class="information">
   <div class="players">
     <div class="player">
-      Player: <span>X</span>
+      Player: <span class="team-blue">X</span>
     </div>
-    <div class="computer">
-      Computer: <span>O</span>
+    <div class="player">
+      Computer: <span class="team-red">O</span>
     </div>
   </div>
 
@@ -14,10 +14,10 @@
     {{ getTurnText() }}
   </div>
   <div class="winner" *ngIf="gameManagerService.hasFinished()">
-    Winner: {{ this.gameManagerService.winnerName() === '' ? 'Tie' : this.gameManagerService.winnerName() }}
+    {{ this.gameManagerService.winnerName() === '' ? 'Tie!' : 'Winner is: ' + this.gameManagerService.winnerName() }}
   </div>
 </div>
 
 <div class="controls">
-  <button (click)="restart()">Restart</button>
+  <button (click)="restart()" class="btn-restart">Restart</button>
 </div>

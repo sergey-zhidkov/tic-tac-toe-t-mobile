@@ -6,7 +6,7 @@
     height: 100px;
     font-family: Consolas, monaco, monospace;
 
-    border: 1px solid gray;
+    border: 3px solid gray;
     border-radius: 5px;
     font-size: 80px;
 
@@ -18,4 +18,5 @@
 :host:hover {
     cursor: pointer;
     background-color: antiquewhite;
+    transition: background-color 200ms ease;
 }
