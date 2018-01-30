@@ -20,10 +20,6 @@ export class Tile {
   }
 }
 
-export interface Row {
-  [index: number]: Tile
-}
-
 @Injectable()
 export class BoardStateService {
   /**
@@ -50,19 +46,11 @@ export class BoardStateService {
     }
   }
 
-  // public getRowNum(): number {
-  //   return this.rows;
-  // }
-
-  // public getColNum(): number {
-  //   return this.cols;
-  // }
-
   /**
    * Translate one dimension array to two dimension
    */
-  public getRows(): Row[] {
-    const result: Row[] = [];
+  public getRows(): Tile[][] {
+    const result: Tile[][] = [];
     for (let i = 0; i < this.rows; i++) {
       const row: Tile[] = [];
       for (let j = 0; j < this.cols; j++) {
@@ -73,8 +61,36 @@ export class BoardStateService {
     return result;
   }
 
-  private getTileByRowCol(i: number, j: number): Tile {
-    return this.state[i * this.rows + j];
+  private getCols(): Tile[][] {
+    const result: Tile[][] = [];
+    for (let i = 0; i < this.cols; i++) {
+      const row: Tile[] = [];
+      for (let j = 0; j < this.rows; j++) {
+        row.push(this.getTileByRowCol(j, i));
+      }
+      result.push(row);
+    }
+    return result;
+  }
+
+  private getDiagonalTopLeft(): Tile[] {
+    const result: Tile[] = [];
+    for (let i = 0; i < this.boardSize; i = i + this.cols + 1) {
+      result.push(this.state[i]);
+    }
+    return result;
+  }
+
+  private getDiagonalTopRight(): Tile[] {
+    const result: Tile[] = [];
+    for (let i = this.cols - 1; i < this.boardSize - 1; i = i + this.cols - 1) {
+      result.push(this.state[i]);
+    }
+    return result;
+  }
+
+  private getTileByRowCol(rowIndex: number, colIndex: number): Tile {
+    return this.state[rowIndex * this.rows + colIndex];
   }
 
   public changeTileState(tile: Tile, isComputerTurn: boolean): void {
@@ -89,11 +105,11 @@ export class BoardStateService {
    * Returns true if no winner yet or board is not full.
    */
   public canContinue(): boolean {
-    if (this.isBoardFull()) {
+    if (this.isWinner()) {
       return false;
     }
 
-    return !this.isWinner();
+    return !this.isBoardFull();
   }
 
   public isBoardFull(): boolean {
@@ -101,7 +117,50 @@ export class BoardStateService {
   }
 
   private isWinner(): boolean {
+    // 1. Check every row 
+    const rows: Tile[][] = this.getRows();
+    for (const row of rows) {
+      if (!this.containsEmptyTile(row) && this.allValuesAreSame(row)) {
+        return true;
+      }
+    }
+
+    // 2. Check every column
+    const cols: Tile[][] = this.getCols();
+    for (const col of cols) {
+      if (!this.containsEmptyTile(col) && this.allValuesAreSame(col)) {
+        return true;
+      }
+    }
+
+    // 3. Check diagonals
+    const diagonalTopLeft: Tile[] = this.getDiagonalTopLeft();
+    if (!this.containsEmptyTile(diagonalTopLeft) && this.allValuesAreSame(diagonalTopLeft)) {
+      return true;
+    }
+    const diagonalTopRight: Tile[] = this.getDiagonalTopRight();
+    if (!this.containsEmptyTile(diagonalTopRight) && this.allValuesAreSame(diagonalTopRight)) {
+      return true;
+    }
+
     return false;
+  }
+
+  private containsEmptyTile(arr: Tile[]): boolean {
+    return arr.filter(tile => tile.getState() === TileState.Empty).length > 0;
+  }
+
+  private allValuesAreSame(arr: Tile[]): boolean {
+    return !!arr.reduce((prev: Tile, cur: Tile) => {
+      if (prev === null) {
+        return null;
+      }
+      if (prev.getState() === cur.getState()) {
+        return prev;
+      } else {
+        return null;
+      }
+    });
   }
 
   /**

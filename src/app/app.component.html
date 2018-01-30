@@ -7,11 +7,11 @@
   <div class="computer">
     Computer: <span>O</span>
   </div>
-  <div class="turn">
+  <div class="turn" *ngIf="!gameManagerService.hasFinished()">
     {{ getTurnText() }}
   </div>
-  <div class="winner" *ngIf="gameManagerService.hasWinner()">
-    {{ this.gameManagerService.winnerName() }}
+  <div class="winner" *ngIf="gameManagerService.hasFinished()">
+    Winner: {{ this.gameManagerService.winnerName() === '' ? 'Tie' : this.gameManagerService.winnerName() }}
   </div>
 </div>
 

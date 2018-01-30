@@ -23,7 +23,7 @@ export class GameManagerService {
     return "Player1";
   }
 
-  public hasWinner(): boolean {
+  public hasFinished(): boolean {
     return this.isFinished;
   }
 
